@@ -86,10 +86,23 @@ func Func1() {
 func variables() {
 	// 指针
 	var a, b *int
-	fmt.Printf("a,b position is %v,%v\n", &a, &b)
+	// a,b position is 0xc000006030,0xc000006038
+	// fmt.Printf("a,b position is %v,%v a=%v \n", &a, &b, *a)
+	fmt.Printf("a,b position is %v,%v \n", &a, &b)
 	/* a = 1
 	b = 2
 	fmt.Printf("a,b position is %v,%v", &a, &b) */
+
+	c := 1
+	// c的地址赋值给a, c和a公用一块空间
+	a = &c
+
+	// a的空间用2存储
+	*a = 2
+
+	fmt.Println("***************")
+	fmt.Printf("a=%v, c=%v, &a=%v, &c=%v \n", a, c, &a, &c)
+	fmt.Println("***************")
 
 	HOME := os.Getenv("HOME")
 	USER := os.Getenv("USER")
@@ -102,9 +115,11 @@ func variables() {
 	} */
 
 	var goos string = runtime.GOOS
+	// the os is:windows, &goos=0xc00003c200
 	fmt.Printf("the os is:%s, &goos=%v \n", goos, &goos)
 
 	goos = "abc"
+	// the os is:abc, &goos=0xc00003c200
 	fmt.Printf("the os is:%s, &goos=%v \n", goos, &goos)
 
 	/* path := os.Getenv("PATH")
