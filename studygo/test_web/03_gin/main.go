@@ -1,6 +1,11 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
 
 func main() {
 	//创建一个默认的路由引擎
@@ -10,7 +15,7 @@ func main() {
 	//当客户端以GET请求/hello路径时，会执行后面的匿名函数
 	r.GET("/hello", func(c *gin.Context) {
 		//c.JSON:返回JSON格式的数据
-		c.JSON(200, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"msg": "Hello world!",
 		})
 	})
@@ -45,27 +50,130 @@ func main() {
 	Gin框架支持开发RESTful API的开发。*/
 
 	r.GET("/book", func(c *gin.Context) {
-		c.JSON(200, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"msg": "GET",
 		})
 	})
 
 	r.POST("/book", func(c *gin.Context) {
-		c.JSON(200, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"msg": "POST",
 		})
 	})
 
 	r.PUT("/book", func(c *gin.Context) {
-		c.JSON(200, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"msg": "PUT",
 		})
 	})
 
 	r.DELETE("/book", func(c *gin.Context) {
-		c.JSON(200, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"msg": "DELETE",
 		})
+	})
+
+	//获取参数
+
+	//获取querystring参数
+	//querystring指的是URL中?后面携带的参数，例如：/user/search?username=小王子&address=沙河。 获取请求的querystring参数的方法如下：
+
+	r.GET("/user/search", func(c *gin.Context) {
+		username := c.DefaultQuery("username", "jieqiang")
+		//username := c.Query("username")
+
+		address := c.Query("address")
+
+		c.JSON(http.StatusOK, gin.H{
+			"msg":      "ok",
+			"username": username,
+			"address":  address,
+		})
+	})
+
+	//获取form参数
+	//前端请求的数据通过form表单提交时，例如向/user/search发送一个POST请求，获取请求数据的方式如下：
+
+	r.POST("/user/search", func(c *gin.Context) {
+		username := c.PostForm("username")
+		address := c.PostForm("address")
+
+		c.JSON(http.StatusOK, gin.H{
+			"msg":      "ok",
+			"username": username,
+			"address":  address,
+		})
+	})
+
+	//获取json参数
+	//当前端请求的数据通过JSON提交时，例如向/json发送一个POST请求，则获取请求参数的方式如下：
+	r.POST("/json", func(c *gin.Context) {
+		// 从c.Request.Body读取请求数据
+		b, _ := c.GetRawData()
+
+		//定义map或结构体
+		var m map[string]interface{}
+
+		//反序列化
+		json.Unmarshal(b, &m)
+		c.JSON(http.StatusOK, m)
+	})
+
+	//获取path参数
+	//请求的参数通过URL路径传递，例如：/user/search/小王子/沙河。 获取请求URL路径中的参数的方式如下。
+	r.GET("/user/search/:username/:address", func(c *gin.Context) {
+		username := c.Param("username")
+		address := c.Param("address")
+
+		//输出json结果给调用方
+		c.JSON(http.StatusOK, gin.H{
+			"msg":      "ok",
+			"username": username,
+			"address":  address,
+		})
+	})
+
+	// 绑定JSON的示例 ({"user": "q1mi", "password": "123456"})
+	r.POST("/loginJSON", func(c *gin.Context) {
+		var login Login
+
+		if err := c.ShouldBind(&login); err == nil {
+			fmt.Printf("login info:%#v\n", login)
+			c.JSON(http.StatusOK, gin.H{
+				"user":     login.User,
+				"password": login.Password,
+			})
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		}
+	})
+
+	// 绑定form表单示例 (user=q1mi&password=123456)
+	r.POST("/loginForm", func(c *gin.Context) {
+		var login Login
+		// ShouldBind()会根据请求的Content-Type自行选择绑定器
+		if err := c.ShouldBind(&login); err == nil {
+			c.JSON(http.StatusOK, gin.H{
+				"user":     login.User,
+				"password": login.Password,
+			})
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		}
+	})
+
+	// 绑定QueryString示例 (/loginQuery?user=q1mi&password=123456)
+	r.GET("/loginForm", func(c *gin.Context) {
+		var login Login
+		// ShouldBind()会根据请求的Content-Type自行选择绑定器
+		if err := c.ShouldBind(&login); err == nil {
+			c.JSON(http.StatusOK, gin.H{
+				"user":     login.User,
+				"password": login.Password,
+			})
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		}
 	})
 
 	//启动HTTP服务,默认在0.0.0.0:8080启动服务
@@ -75,4 +183,12 @@ func main() {
 		return
 	}
 
+}
+
+//参数绑定
+//为了能够更方便的获取请求相关参数，提高开发效率，我们可以基于请求的Content-Type识别请求数据类型并利用反射机制自动提取请求中QueryString、form表单、JSON、XML等参数到结构体中。 下面的示例代码演示了.ShouldBind()强大的功能，它能够基于请求自动提取JSON、form表单和QueryString类型的数据，并把值绑定到指定的结构体对象。
+// Binding from JSON
+type Login struct {
+	User     string `form:"user" json:"user" binding:"required"`
+	Password string `form:"password" json:"password" binding:"required"`
 }
