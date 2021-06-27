@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-// Menu菜单
+// Menu Menu菜单
 type Menu struct {
 	ID       int
 	ParentID int
@@ -20,26 +20,9 @@ type TreeList struct {
 	Children []TreeList
 }
 
-// FormMenu 格式化菜单
-func FormMenu(list []Menu, pid int) (FormMenu []Menu) {
-	for _, val := range list {
-		if val.ParentID == pid {
-			if pid == 0 {
-				// 顶层
-				FormMenu = append(FormMenu, val)
-			} else {
-				var children []Menu
-				child := val
-				children = append(children, child)
-			}
-		}
-	}
-	return
-}
-
 // GetMenu 获取菜单
 func GetMenu(menuList []Menu, pid int) []TreeList {
-	treeList := []TreeList{}
+	var treeList []TreeList
 	for _, v := range menuList {
 		if v.ParentID == pid {
 			child := GetMenu(menuList, v.ID)
