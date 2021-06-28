@@ -22,7 +22,7 @@ func init() {
 // 主函数
 func main() {
 	// if判断bool值
-	booleans()
+	testBooleans()
 
 	/* var i int
 	i = testReturn() */
@@ -31,11 +31,16 @@ func main() {
 	var i = testReturn()
 	fmt.Printf("i=%d \n", i)
 
-	debugSwitch()
+	// switch
+	testSwitch()
+
+	testFor()
+
+	testFor2()
 }
 
 // 判断bool值
-func booleans() {
+func testBooleans() {
 	bool1 := true
 	if bool1 {
 		fmt.Printf("the value is true=%v \n", bool1)
@@ -112,7 +117,7 @@ func stringConversion() {
 }
 
 // switch语法
-func debugSwitch() {
+func testSwitch() {
 	var num1 int = 100
 
 	switch num1 {
@@ -148,5 +153,27 @@ func debugSwitch() {
 	default:
 		fmt.Println("default case")
 	}
+
+}
+
+// This is the 0 iteration
+// This is the 1 iteration
+// This is the 2 iteration
+// This is the 3 iteration
+// This is the 4 iteration
+func testFor() {
+	for i := 0; i < 5; i++ {
+		fmt.Printf("This is the %d iteration \n", i)
+	}
+}
+
+func testFor2() {
+	for i := 0; i < 5; i++ {
+		for j := 0; j < 10; j++ {
+			fmt.Printf("for i=%d, j=%d \n", i, j)
+		}
+	}
+
+	fmt.Println("*********")
 
 }
