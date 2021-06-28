@@ -39,7 +39,8 @@ func FormMenu(list []Menu, pid int) (FormMenu []Menu) {
 
 // GetMenu 获取菜单
 func GetMenu(menuList []Menu, pid int) []TreeList {
-	treeList := []TreeList{}
+	//treeList := []TreeList{}
+	var treeList []TreeList
 	for _, v := range menuList {
 		if v.ParentID == pid {
 			child := GetMenu(menuList, v.ID)
