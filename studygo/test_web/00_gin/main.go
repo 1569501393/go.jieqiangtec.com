@@ -8,6 +8,7 @@ func setupRouter() *gin.Engine {
 		c.String(200, "pong")
 
 	})
+
 	return r
 }
 

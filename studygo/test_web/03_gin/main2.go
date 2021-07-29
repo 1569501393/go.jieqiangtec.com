@@ -4,7 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
+	"path"
+	"time"
 )
 
 func main() {
@@ -176,10 +179,64 @@ func main() {
 		}
 	})
 
+	// 单文件上传
+	/*C:\Users\jieqiang>curl -X POST http://localhost:8081/upload -F "file=@min8k.jpg"  -H "Content-Type: multipart/form-data"
+	  	'min8k.jpg' uploaded
+
+	C:\Users\jieqiang>curl -X POST http://localhost:8081/upload -F "file=@E:/picture/min8k.jpg"  -H "Content-Type: multipart/form-data"
+	'min8k.jpg' uploaded
+	*/
+
+	// C:\Users\jieqiang>curl -vvv -X  POST http://localhost:8081/upload -F "file=@E:/picture/min8k.jpg"  -H "Content-Type: multipart/form-data"
+	// Note: Unnecessary use of -X or --request, POST is already inferred.
+	// 	*   Trying ::1...
+	// 	* TCP_NODELAY set
+	// 	* Connected to localhost (::1) port 8081 (#0)
+	// 	> POST /upload HTTP/1.1
+	// 	> Host: localhost:8081
+	// 	> User-Agent: curl/7.55.1
+	// 	> Accept: */*
+	// 		> Content-Length: 7594
+	// 		> Expect: 100-continue
+	// 		> Content-Type: multipart/form-data; boundary=------------------------541abaa55a36f90c
+	// 		>
+	// 		< HTTP/1.1 100 Continue
+	// 		< HTTP/1.1 200 OK
+	// 		< Content-Type: text/plain; charset=utf-8
+	// 		< Date: Thu, 29 Jul 2021 03:01:34 GMT
+	// 		< Content-Length: 20
+	// 		<
+	// 		'min8k.jpg' uploaded* Connection #0 to host localhost left intact
+	r.POST("/upload", func(c *gin.Context) {
+		file, err := c.FormFile("file")
+		fmt.Printf("file:%v,\n Filename:%v,\nHeader:%v,", 1, file.Filename, file.Header)
+		if err != nil {
+			c.String(http.StatusBadGateway, fmt.Sprintf("'%s' \n error:%v", file.Filename, err.Error()))
+			return
+		}
+
+		log.Printf("file:%v,\n Filename:%v,\nHeader:%v,", 1, file.Filename, file.Header)
+		// dst := "./uploads/" + file.Filename
+		// dst := "./uploads/a.jpg"
+		// dst := "./ajieqiangjjj.jpg"
+		// D:\www\go\go.jieqiangtec.com\studygo\test_web\03_gin\uploads\upload-20210729104814-min8k.jpg
+		// dst := fmt.Sprintf("./uploads/upload-%v-%v", time.Now().Format("20060102150405"), file.Filename)
+		// dst := fmt.Sprintf("./uploads/upload-%v-%v", time.Now().Format("20060102150405"), file.Filename)
+		dst := path.Join("./uploads/", "path-"+time.Now().Format("20060102150405")+file.Filename)
+
+		err = c.SaveUploadedFile(file, dst)
+		if err != nil {
+			c.String(http.StatusBadGateway, fmt.Sprintf("'%s' \n error:%v", file.Filename, err))
+			return
+		}
+
+		c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded", file.Filename))
+	})
+
 	// 启动HTTP服务,默认在0.0.0.0:8080启动服务
 	// 将上面的代码保存并编译执行，然后使用浏览器打开127.0.0.1:8080/hello就能看到一串JSON字符串。
 	// err := r.Run()
-	err := r.Run(":8080")
+	err := r.Run(":8081")
 	if err != nil {
 		return
 	}
