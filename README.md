@@ -2,11 +2,21 @@
 # [go.jieqiangtec.com](https://www.jb51.net/books/709772.html)
 go学习
 
+# [Go 语言学习资料与社区索引](https://gobyexample.com/)
 
+# [Go 学习之路](https://github.com/1569501393/learning-golang)
+
+# [Go 语言设计模式](https://github.com/1569501393/golang-design-pattern)
+
+# [go-study-index](https://github.com/1569501393/go-study-index)
+
+# [Golang资料补给包](https://github.com/1569501393/Introduction-to-Golang)
+
+# [Go 开发者路线图](https://github.com/Quorafind/golang-developer-roadmap-cn)
+
+# [Go 入门的学习笔记](https://github.com/1569501393/Go-1)
 
 ## [**Go入门指南——The Way to Go（中文版）**](https://m.ituring.com.cn/book/1205)
-
-
 
 ## [Go 入门指南](https://learnku.com/docs/the-way-to-go)
 ```
