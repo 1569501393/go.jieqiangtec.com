@@ -153,7 +153,7 @@ func VarType() {
 	flag := Active | Send
 	println("flag=", flag)
 
-	// 04-struct/main.go:149:12: division by zero
+	// 04-data-type/main.go:149:12: division by zero
 	// println(1 / 0)
 
 	for i := 0; i < 10; i++ {
