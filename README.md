@@ -30,7 +30,7 @@ go学习
  2.1. 平台与架构
  2.2. Go 环境变量
  2.3. 在 Linux 上安装 Go
- 2.4. 在 Mac OS X 上安装 Go
+ 2.4. 在 Mac OS x 上安装 Go
  2.5. 在 Windows 上安装 Go
  2.6. 安装目录清单
  2.7. Go 运行时（runtime）
@@ -263,7 +263,7 @@ go学习
    1.  [2.1. 平台与架构](https://learnku.com/docs/the-way-to-go/31-platform-and-architecture/3564)
    2.  [2.2. Go 环境变量](https://learnku.com/docs/the-way-to-go/go-environment-variable/3565)
    3.  [2.3. 在 Linux 上安装 Go](https://learnku.com/docs/the-way-to-go/install-go-on-linux/3566)
-   4.  [2.4. 在 Mac OS X 上安装 Go](https://learnku.com/docs/the-way-to-go/install-go-on-mac-os-x/3567)
+   4.  [2.4. 在 Mac OS x 上安装 Go](https://learnku.com/docs/the-way-to-go/install-go-on-mac-os-x/3567)
    5.  [2.5. 在 Windows 上安装 Go](https://learnku.com/docs/the-way-to-go/install-go-on-windows/3568)
    6.  [2.6. 安装目录清单](https://learnku.com/docs/the-way-to-go/install-directory-listing/3569)
    7.  [2.7. Go 运行时（runtime）](https://learnku.com/docs/the-way-to-go/go-runtime-runtime/3570)

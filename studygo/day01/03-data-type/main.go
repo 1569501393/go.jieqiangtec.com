@@ -133,7 +133,7 @@ func main() {
 	fmt.Printf("%o \n", b) // 77
 
 	fmt.Printf("%x \n", c) // ff
-	fmt.Printf("%X \n", c) // FF
+	fmt.Printf("%x \n", c) // FF
 
 	fmt.Printf("Pi = %f\n", math.Pi)
 	fmt.Printf("Pi = %.2f\n", math.Pi)

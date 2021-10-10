@@ -180,15 +180,15 @@ func main() {
 	})
 
 	// 单文件上传
-	/*C:\Users\jieqiang>curl -X POST http://localhost:8081/upload -F "file=@min8k.jpg"  -H "Content-Type: multipart/form-data"
+	/*C:\Users\jieqiang>curl -x POST http://localhost:8081/upload -F "file=@min8k.jpg"  -H "Content-Type: multipart/form-data"
 	  	'min8k.jpg' uploaded
 
-	C:\Users\jieqiang>curl -X POST http://localhost:8081/upload -F "file=@E:/picture/min8k.jpg"  -H "Content-Type: multipart/form-data"
+	C:\Users\jieqiang>curl -x POST http://localhost:8081/upload -F "file=@E:/picture/min8k.jpg"  -H "Content-Type: multipart/form-data"
 	'min8k.jpg' uploaded
 	*/
 
-	// C:\Users\jieqiang>curl -vvv -X  POST http://localhost:8081/upload -F "file=@E:/picture/min8k.jpg"  -H "Content-Type: multipart/form-data"
-	// Note: Unnecessary use of -X or --request, POST is already inferred.
+	// C:\Users\jieqiang>curl -vvv -x  POST http://localhost:8081/upload -F "file=@E:/picture/min8k.jpg"  -H "Content-Type: multipart/form-data"
+	// Note: Unnecessary use of -x or --request, POST is already inferred.
 	// 	*   Trying ::1...
 	// 	* TCP_NODELAY set
 	// 	* Connected to localhost (::1) port 8081 (#0)

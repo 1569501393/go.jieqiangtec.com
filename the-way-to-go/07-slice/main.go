@@ -81,6 +81,8 @@ func sliceTest() {
 	seasons[3] = "Winter"
 
 	for i, season := range seasons {
+		// seasons at 0 is: [Spring Summer Autumn Winter], []string{"Spring", "Summer", "Autumn", "Winter"}
+		// fmt.Printf("seasons at %d is: %+v, %#v  \n", i, seasons, seasons)
 		fmt.Printf("seasons at %d is: %+v, %#v  \n", i, season, seasons)
 	}
 

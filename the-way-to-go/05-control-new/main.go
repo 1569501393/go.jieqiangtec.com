@@ -109,7 +109,7 @@ func forTest() {
 
 	println("index \t int(rune) \t rune \t char \t bytes")
 	for index, rune := range str2 {
-		fmt.Printf("%-2d \t %d \t %U \t '%c' \t %X \n", index, rune, rune, rune, []byte(string(rune)))
+		fmt.Printf("%-2d \t %d \t %U \t '%c' \t %x \n", index, rune, rune, rune, []byte(string(rune)))
 
 	}
 
