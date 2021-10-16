@@ -92,7 +92,7 @@ func main() {
 	}
 
 	q := &Square{side: 5}
-	// q := Square{side: 5}
+	// q := square{side: 5}
 
 	shapes := []Shaper{r, q}
 	fmt.Printf("Looping through shapes for area... \n")
