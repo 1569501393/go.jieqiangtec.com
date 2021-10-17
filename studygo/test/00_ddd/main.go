@@ -5,14 +5,14 @@ import "rsc.io/quote"
 
 func main() {
 
-	  fmt.Println("hello, world")
+	fmt.Println("hello, world")
 
 	x := 1
 
 	fmt.Println(x)
 
 	{
-		 fmt.Println(x)
+		fmt.Println(x)
 		x := 2
 		fmt.Println(x)
 	}
