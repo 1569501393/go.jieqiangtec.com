@@ -24,7 +24,7 @@ func (r *Router) Registry() *gin.Engine {
 
 	r.testRouter.Register(app)
 	app.NoRoute(func(c *gin.Context) {
-		c.String(http.StatusNotFound, "404")
+		c.String(http.StatusNotFound, "my 404")
 	})
 
 	return app

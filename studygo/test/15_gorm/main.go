@@ -51,6 +51,10 @@ func main() {
 		DeletedAt: 0,
 	}
 
+	res := db.Table("text").Debug().Select("SUM(id) AS sum").Where("type=?", 1).First(&text)
+	fmt.Printf("res:%v", res)
+	return
+
 	result := db.Create(&text)
 
 	fmt.Printf("创建记录===id:%v, result:%v, text:%v, &text:%v \n", text.ID, result, text, &text)
