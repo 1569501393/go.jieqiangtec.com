@@ -1,0 +1,9 @@
+FROM alpine
+
+WORKDIR /build
+
+COPY hello .
+
+# RUN go build -o hello hello.go
+
+CMD ["./hello"]
